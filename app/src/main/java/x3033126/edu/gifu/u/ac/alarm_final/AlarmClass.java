@@ -2,27 +2,27 @@ package x3033126.edu.gifu.u.ac.alarm_final;
 
 //アラームの設定を保存するクラス
 public class AlarmClass {
-    private char hour;
-    private char min;
+    private int hour;
+    private int min;
 
-    public AlarmClass(char hour, char min) {
+    public AlarmClass(int hour, int min) {
         this.hour = hour;
         this.min = min;
     }
 
-    public char getHour() {
+    public int getHour() {
         return hour;
     }
 
-    public char getMin() {
+    public int getMin() {
         return min;
     }
 
-    public void setHour(char hour) {
+    public void setHour(int hour) {
         this.hour = hour;
     }
 
-    public void setMin(char min) {
+    public void setMin(int min) {
         this.min = min;
     }
 }

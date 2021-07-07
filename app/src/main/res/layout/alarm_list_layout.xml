@@ -13,7 +13,7 @@
         android:layout_margin="20dp"
         android:layout_marginStart="36dp"
         android:layout_marginBottom="36dp"
-        android:text="back"
+        android:text="@string/back"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -26,8 +26,22 @@
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="36dp"
         android:clickable="true"
+        android:contentDescription="@string/add_clock"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/alarm_list"
+        android:layout_width="409dp"
+        android:layout_height="629dp"
+        android:scaleX="1"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/alarm_item_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
