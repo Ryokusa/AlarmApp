@@ -1,9 +1,11 @@
 package x3033126.edu.gifu.u.ac.alarm_final;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,13 +20,21 @@ public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.Vie
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView textView;
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
+        private final Switch aSwitch;
+
         public ViewHolder(View v){
             super(v);
             textView = (TextView)v.findViewById(R.id.textView);
+            aSwitch = (Switch)v.findViewById(R.id.enable_switch);
         }
 
         public TextView getTextView() {
             return textView;
+        }
+
+        public Switch getSwitch() {
+            return aSwitch;
         }
     }
 
@@ -48,6 +58,11 @@ public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.Vie
         int hour = alarm.getHour();
         int min = alarm.getMin();
         viewHolder.getTextView().setText(String.format(Locale.JAPAN, "%2d:%02d", hour, min));
+
+        //イベントリスナー
+        viewHolder.getSwitch().setOnCheckedChangeListener((v, checked) -> localAlarmList.get(position).setEnable(checked));
+
+        viewHolder.getSwitch().setChecked(alarm.getEnable());
     }
 
     @Override
