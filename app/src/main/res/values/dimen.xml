@@ -4,5 +4,5 @@
         name="list_item_height">
         32sp
     </dimen>
-    <dimen name="margin_medium">40dp</dimen>
+    <dimen name="margin_medium">0dp</dimen>
 </resources>
