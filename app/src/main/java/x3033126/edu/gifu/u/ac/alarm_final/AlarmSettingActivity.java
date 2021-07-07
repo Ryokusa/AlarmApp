@@ -21,6 +21,9 @@ public class AlarmSettingActivity extends AppCompatActivity {
         //グローバル
         utilCommon = (UtilCommon)getApplication();
 
+        //タイトル
+        setTitle(R.string.alarm_setting);
+
         Button returnButton = (Button)findViewById(R.id.return_button2);
         returnButton.setOnClickListener(v -> finish());
 
