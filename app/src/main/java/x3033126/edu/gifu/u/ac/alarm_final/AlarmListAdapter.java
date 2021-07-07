@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Locale;
 
 public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.ViewHolder> {
     //データ
@@ -42,7 +43,11 @@ public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.Vie
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position){
         Log.d("test", localAlarmList.get(position).toString());
-        viewHolder.getTextView().setText(String.valueOf(localAlarmList.get(position).getHour()));
+
+        AlarmClass alarm = localAlarmList.get(position);
+        int hour = alarm.getHour();
+        int min = alarm.getMin();
+        viewHolder.getTextView().setText(String.format(Locale.JAPAN, "%2d:%02d", hour, min));
     }
 
     @Override
