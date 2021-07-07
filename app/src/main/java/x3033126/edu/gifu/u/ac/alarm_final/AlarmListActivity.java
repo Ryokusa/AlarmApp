@@ -34,6 +34,8 @@ public class AlarmListActivity extends AppCompatActivity {
         recyclerView.setAdapter(alarmListAdapter);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
+        //編集モード
+        alarmListAdapter.setOnItemClickListener((v, position) -> startAlarmSettingActivity(position));
 
         //BACKボタン
         Button returnButton = findViewById(R.id.return_button);
@@ -41,10 +43,7 @@ public class AlarmListActivity extends AppCompatActivity {
 
         //アラーム追加ボタン
         FloatingActionButton addButton = (FloatingActionButton)findViewById(R.id.addAlarmButton);
-        addButton.setOnClickListener(v -> {
-            Intent intent = new Intent(AlarmListActivity.this, AlarmSettingActivity.class);
-            startActivity(intent);
-        });
+        addButton.setOnClickListener(v -> startAlarmSettingActivity());
     }
 
     //アクティビティ表示時
@@ -52,5 +51,15 @@ public class AlarmListActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         alarmListAdapter.notifyDataSetChanged();    //更新
+    }
+
+    //アラーム設定アクティビティ起動
+    private void startAlarmSettingActivity(int position){
+        Intent intent = new Intent(AlarmListActivity.this, AlarmSettingActivity.class);
+        intent.putExtra("INDEX", position);
+        startActivity(intent);
+    }
+    private void startAlarmSettingActivity() {
+        startAlarmSettingActivity(-1);
     }
 }

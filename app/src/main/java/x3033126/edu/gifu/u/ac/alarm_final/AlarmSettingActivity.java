@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class AlarmSettingActivity extends AppCompatActivity {
-    UtilCommon utilCommon;
+    private UtilCommon utilCommon;
+    private int selIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -20,6 +21,8 @@ public class AlarmSettingActivity extends AppCompatActivity {
 
         //グローバル
         utilCommon = (UtilCommon)getApplication();
+        selIndex = getIntent().getIntExtra("INDEX", -1);
+        init(); //初期化処理(index決めたあとじゃないと動かない）
 
         //タイトル
         setTitle(R.string.alarm_setting);
@@ -33,7 +36,6 @@ public class AlarmSettingActivity extends AppCompatActivity {
             TimePicker tp = (TimePicker) findViewById(R.id.time_picker);
 
             // 設定時刻の時間,分を取得
-
             int hour = tp.getHour();
             int min = tp.getMinute();
 
@@ -44,10 +46,35 @@ public class AlarmSettingActivity extends AppCompatActivity {
             String str = String.format(Locale.JAPAN, "%2d:%02d", hour, min);
             textView.setText(str);
 
-            List<AlarmClass> alarmList = utilCommon.getAlarmClassList();
-            alarmList.add(new AlarmClass(hour, min));
-
+            //アラーム追加・編集
+            alarmSetting(hour, min);
             finish();
         });
     }
+
+    //初期化処理
+    //タイムピッカー設定
+    private void init(){
+        if(selIndex != -1){  //編集時
+            List<AlarmClass> alarmList = utilCommon.getAlarmClassList();
+            AlarmClass alarm = alarmList.get(selIndex);
+
+            TimePicker tp = (TimePicker)findViewById(R.id.time_picker);
+            tp.setHour(alarm.getHour());
+            tp.setMinute(alarm.getMin());
+        }
+    }
+
+    //アラーム追加・編集
+    private void alarmSetting(int hour, int min){
+        List<AlarmClass> alarmList = utilCommon.getAlarmClassList();
+        if (selIndex == -1){
+            alarmList.add(new AlarmClass(hour, min));
+        }else{
+            AlarmClass alarm = alarmList.get(selIndex);
+            alarm.setHour(hour);
+            alarm.setMin(min);
+        }
+    }
+
 }
