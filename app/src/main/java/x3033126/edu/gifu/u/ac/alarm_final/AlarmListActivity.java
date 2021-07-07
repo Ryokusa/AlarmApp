@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,13 +20,20 @@ public class AlarmListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_list_layout);
+
+        //グローバル
         utilCommon = (UtilCommon) getApplication();
 
+        //タイトル
+        setTitle(R.string.alarm_setting);
+
         //コンポーネント
-       RecyclerView recyclerView = (RecyclerView) findViewById(R.id.alarm_list);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.alarm_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         alarmListAdapter = new AlarmListAdapter(utilCommon.getAlarmClassList());
         recyclerView.setAdapter(alarmListAdapter);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
 
         //BACKボタン
         Button returnButton = findViewById(R.id.return_button);
@@ -39,9 +47,10 @@ public class AlarmListActivity extends AppCompatActivity {
         });
     }
 
+    //アクティビティ表示時
     @Override
     protected void onResume(){
         super.onResume();
-        alarmListAdapter.notifyDataSetChanged();
+        alarmListAdapter.notifyDataSetChanged();    //更新
     }
 }
