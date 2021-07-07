@@ -67,9 +67,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.Vie
         int min = alarm.getMin();
 
         //LinearLayout
-        viewHolder.getLinearLayout().setOnClickListener(v ->{
-            listener.onItemClick(viewHolder.getLinearLayout(), position);
-        });
+        viewHolder.getLinearLayout().setOnClickListener(v -> listener.onItemClick(viewHolder.getLinearLayout(), position));
 
         //TextView
         viewHolder.getTextView().setText(String.format(Locale.JAPAN, "%2d:%02d", hour, min));
