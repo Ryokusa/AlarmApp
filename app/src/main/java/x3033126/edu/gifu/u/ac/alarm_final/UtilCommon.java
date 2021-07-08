@@ -35,15 +35,18 @@ public class UtilCommon extends Application {
         AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
         if(am != null){
             Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR_OF_DAY, hour);   //時間
             calendar.set(Calendar.MINUTE, min);         //分
+            calendar.set(Calendar.SECOND, 0);           //秒
             //過ぎている場合は次の日
             if(calendar.getTimeInMillis() <= System.currentTimeMillis()){
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
             }
 
+            Log.d("tag", "" + calendar.getTimeInMillis() + " : " + System.currentTimeMillis());
             //TODO: キャンセル動作を考慮
-            //am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pending);  //セット
+            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pending);  //セット
 
             String text = String.format(Locale.JAPAN, "%d月%d日, %02d:%02dにアラーム設定",
                     calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
