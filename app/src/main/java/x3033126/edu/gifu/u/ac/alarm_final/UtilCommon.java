@@ -5,15 +5,18 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 //グローバル変数
 public class UtilCommon extends Application {
     private final List<AlarmClass> alarmClassList = new ArrayList<>();
+    private List<Integer> requestCodes = new ArrayList<>();
 
     @Override
     public void onCreate(){
@@ -26,9 +29,9 @@ public class UtilCommon extends Application {
     }
 
     //アラームセット
-    public void setAlarm(int hour, int min, int requestCode){
+    public void setAlarm(int hour, int min){
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), requestCode, intent, 0);
+        PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), makeRequestCode(), intent, 0);
         AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
         if(am != null){
             Calendar calendar = Calendar.getInstance();
@@ -50,5 +53,36 @@ public class UtilCommon extends Application {
             Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
         }
     }
+
+    //indexのアラーム削除
+    public void removeAlarm(int index){
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(),
+                requestCodes.get(index), intent, 0);
+        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+        if(am != null){
+            am.cancel(pending);
+        }
+        Log.d("tag", "requestCode="+requestCodes.get(index)+"を削除");
+    }
+
+    //アラーム全削除
+    public void allRemoveAlarm(){
+        for (int i = 0; i < requestCodes.size(); i++){
+            removeAlarm(i);
+        }
+    }
+
+    private int makeRequestCode(){
+        //かぶらない乱数コードを生成・追加
+        Random random = new Random();
+        int value = random.nextInt(100);
+        while(requestCodes.contains(value)){
+            value = random.nextInt(100);
+        }
+        this.requestCodes.add(value);
+        return value;
+    }
+
 
 }

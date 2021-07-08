@@ -8,10 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
+    UtilCommon utilCommon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        utilCommon  = (UtilCommon)getApplication();
 
         //コンポーネント
         FloatingActionButton nextButton = this.findViewById(R.id.alarmListButton);
@@ -20,5 +24,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        utilCommon.allRemoveAlarm();
     }
 }

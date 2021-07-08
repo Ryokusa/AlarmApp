@@ -72,7 +72,7 @@ public class AlarmSettingActivity extends AppCompatActivity {
             AlarmClass alarm = new AlarmClass(hour, min);
             alarmList.add(alarm);
             //TODO: requestCodeを指定
-            utilCommon.setAlarm(hour, min, selIndex);
+            utilCommon.setAlarm(hour, min);
         }else{                  //編集時
             AlarmClass alarm = alarmList.get(selIndex);
             alarm.setHour(hour);

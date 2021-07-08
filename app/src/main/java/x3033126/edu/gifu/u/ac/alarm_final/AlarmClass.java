@@ -5,6 +5,7 @@ public class AlarmClass {
     private int hour;
     private int min;
     private Boolean enable;
+    private int requestCode;
 
     public AlarmClass(int hour, int min) {
         this.hour = hour;
@@ -35,4 +36,11 @@ public class AlarmClass {
         this.enable = enable;
     }
 
+    public int getRequestCode() {
+        return requestCode;
+    }
+
+    public void setRequestCode(int requestCode) {
+        this.requestCode = requestCode;
+    }
 }
