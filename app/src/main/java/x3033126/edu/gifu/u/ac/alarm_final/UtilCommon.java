@@ -29,9 +29,9 @@ public class UtilCommon extends Application {
     }
 
     //アラームセット
-    public void setAlarm(int hour, int min){
+    public void setAlarm(int hour, int min, int requestCode){
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), makeRequestCode(), intent, 0);
+        PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), requestCode, intent, 0);
         AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
         if(am != null){
             Calendar calendar = Calendar.getInstance();
@@ -45,14 +45,27 @@ public class UtilCommon extends Application {
             }
 
             Log.d("tag", "" + calendar.getTimeInMillis() + " : " + System.currentTimeMillis());
-            //TODO: キャンセル動作を考慮
-            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pending);  //セット
+            //TODO: 繰り返し登録
+            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);  //セット
 
             String text = String.format(Locale.JAPAN, "%d月%d日, %02d:%02dにアラーム設定",
                     calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
                     calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
             Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void setAlarm(int index){
+        int requestCode = requestCodes.get(index);
+        removeAlarm(index);
+        int hour = alarmClassList.get(index).getHour();
+        int min = alarmClassList.get(index).getMin();
+
+        setAlarm(hour, min, requestCode);
+    }
+
+    public void setAlarm(int hour, int min){
+        setAlarm(hour, min, makeRequestCode());
     }
 
     //indexのアラーム削除
