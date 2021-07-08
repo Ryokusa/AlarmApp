@@ -1,6 +1,5 @@
 package x3033126.edu.gifu.u.ac.alarm_final;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
@@ -11,6 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 //グローバル変数
@@ -45,9 +45,7 @@ public class UtilCommon extends Application {
             //TODO: キャンセル動作を考慮
             //am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pending);  //セット
 
-            //TODO: この意味考える
-            @SuppressLint("DefaultLocale")
-            String text = String.format("%d月%d日, %02d:%02dにアラーム設定",
+            String text = String.format(Locale.JAPAN, "%d月%d日, %02d:%02dにアラーム設定",
                     calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
                     calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
             Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
