@@ -16,7 +16,7 @@ import java.util.Random;
 //グローバル変数
 public class UtilCommon extends Application {
     private final List<AlarmClass> alarmClassList = new ArrayList<>();
-    private List<Integer> requestCodes = new ArrayList<>();
+    private final List<Integer> requestCodes = new ArrayList<>();
 
     @Override
     public void onCreate(){
