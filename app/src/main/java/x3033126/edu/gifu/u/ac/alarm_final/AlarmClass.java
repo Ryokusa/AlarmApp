@@ -34,4 +34,5 @@ public class AlarmClass {
     public void setEnable(Boolean enable) {
         this.enable = enable;
     }
+
 }
