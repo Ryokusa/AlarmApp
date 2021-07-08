@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+//TODO:常駐化
+
 //グローバル変数
 public class UtilCommon extends Application {
     private final List<AlarmClass> alarmClassList = new ArrayList<>();
