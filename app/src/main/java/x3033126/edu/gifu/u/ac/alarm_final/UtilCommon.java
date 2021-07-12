@@ -48,7 +48,9 @@ public class UtilCommon extends Application {
 
             Log.d("tag", "" + calendar.getTimeInMillis() + " : " + System.currentTimeMillis());
             //TODO: 繰り返し登録
-            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);  //セット
+            //am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);  //セット
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pending);  //五秒アラーム
+
 
             String text = String.format(Locale.JAPAN, "%d月%d日, %02d:%02dにアラーム設定",
                     calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),

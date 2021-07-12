@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="x3033126.edu.gifu.u.ac.alarm_final">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
@@ -24,6 +25,9 @@
         </activity>
         <activity android:name=".AlarmSettingActivity"
             android:label="@string/app_name">
+        </activity>
+        <activity android:name=".AlarmActivity"
+            android:taskAffinity="alarm.wakeup"><!-- 別タスクで起動 好きなパッケージ名を指定 -->
         </activity>
 
         <receiver android:name=".AlarmReceiver">
