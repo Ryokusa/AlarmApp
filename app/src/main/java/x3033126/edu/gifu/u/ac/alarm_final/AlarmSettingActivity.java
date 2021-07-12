@@ -77,9 +77,7 @@ public class AlarmSettingActivity extends AppCompatActivity {
     private void alarmSetting(int hour, int min){
         List<AlarmClass> alarmList = utilCommon.getAlarmClassList();
         if (selIndex == -1){    //追加時
-            AlarmClass alarm = new AlarmClass(hour, min);
-            alarmList.add(alarm);
-            utilCommon.setAlarm(hour, min);
+            utilCommon.addAlarm(new AlarmClass(hour, min));
         }else{                  //編集時
             AlarmClass alarm = alarmList.get(selIndex);
             alarm.setHour(hour);

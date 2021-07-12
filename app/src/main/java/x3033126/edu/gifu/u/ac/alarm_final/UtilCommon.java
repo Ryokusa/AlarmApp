@@ -38,10 +38,15 @@ public class UtilCommon extends Application {
         return alarmClassList;
     }
 
-    //TODO: アラームの起動・追加・停止・削除を分ける
+    //アラーム追加
+    public void addAlarm(AlarmClass alarm){
+        this.alarmClassList.add(alarm);
+        if (alarm.getEnable()) {
+            setAlarm(alarm.getHour(), alarm.getMin());
+        }
+    }
 
-
-    //アラームセット
+    //アラーム起動
     public void setAlarm(int hour, int min, int requestCode){
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), requestCode, intent, 0);
@@ -83,7 +88,7 @@ public class UtilCommon extends Application {
         setAlarm(hour, min, makeRequestCode());
     }
 
-    //アラームマネージャーのみの削除
+    //アラーム停止
     public void resetAlarm(int index){
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(),

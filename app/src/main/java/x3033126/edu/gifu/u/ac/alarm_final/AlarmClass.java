@@ -12,6 +12,11 @@ public class AlarmClass {
         this.enable = true;
     }
 
+    public AlarmClass(int hour, int min, Boolean enable){
+        this(hour, min);
+        this.enable = enable;
+    }
+
 
     public int getHour() {
         return hour;
