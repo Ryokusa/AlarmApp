@@ -2,6 +2,7 @@
     <string name="app_name">alarm_final</string>
     <string name="back">BACK</string>
     <string name="save">保存</string>
+    <string name="remove">削除</string>
     <string name="alarm_setting">アラーム設定</string>
 
     <string name="add_clock">add clock</string>

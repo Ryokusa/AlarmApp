@@ -16,7 +16,7 @@ import java.util.Random;
 
 import x3033126.edu.gifu.u.ac.alarm_final.data.ObjectStorage;
 
-//TODO:常駐化
+//TODO:enable処理
 
 //グローバル変数
 public class UtilCommon extends Application {
@@ -37,6 +37,9 @@ public class UtilCommon extends Application {
     public List<AlarmClass> getAlarmClassList() {
         return alarmClassList;
     }
+
+    //TODO: アラームの起動・追加・停止・削除を分ける
+
 
     //アラームセット
     public void setAlarm(int hour, int min, int requestCode){
@@ -69,7 +72,7 @@ public class UtilCommon extends Application {
 
     public void setAlarm(int index){
         int requestCode = requestCodes.get(index);
-        removeAlarm(index);
+        resetAlarm(index);
         int hour = alarmClassList.get(index).getHour();
         int min = alarmClassList.get(index).getMin();
 
@@ -80,8 +83,8 @@ public class UtilCommon extends Application {
         setAlarm(hour, min, makeRequestCode());
     }
 
-    //indexのアラーム削除
-    public void removeAlarm(int index){
+    //アラームマネージャーのみの削除
+    public void resetAlarm(int index){
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(),
                 requestCodes.get(index), intent, 0);
@@ -90,6 +93,12 @@ public class UtilCommon extends Application {
             am.cancel(pending);
         }
         Log.d("tag", "requestCode="+requestCodes.get(index)+"を削除");
+    }
+
+    //indexのアラーム削除
+    public void removeAlarm(int index){
+        resetAlarm(index);  //アラームマネージャー削除
+        this.alarmClassList.remove(index);
     }
 
     //アラーム全削除

@@ -52,6 +52,12 @@ public class AlarmSettingActivity extends AppCompatActivity {
             alarmSetting(hour, min);
             finish();
         });
+
+        Button removeButton = findViewById(R.id.remove_button);
+        removeButton.setOnClickListener((v) -> {
+            utilCommon.removeAlarm(selIndex);
+            finish();
+        });
     }
 
     //初期化処理
