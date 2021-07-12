@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import x3033126.edu.gifu.u.ac.alarm_final.activities.AlarmActivity;
+
 public class AlarmReceiver extends BroadcastReceiver {
     private final static String TAG = "AlarmReceiver";
 

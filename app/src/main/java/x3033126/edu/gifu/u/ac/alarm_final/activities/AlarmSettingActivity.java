@@ -1,4 +1,4 @@
-package x3033126.edu.gifu.u.ac.alarm_final;
+package x3033126.edu.gifu.u.ac.alarm_final.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 import java.util.Locale;
+
+import x3033126.edu.gifu.u.ac.alarm_final.AlarmClass;
+import x3033126.edu.gifu.u.ac.alarm_final.R;
+import x3033126.edu.gifu.u.ac.alarm_final.UtilCommon;
 
 public class AlarmSettingActivity extends AppCompatActivity {
     private static final String TAG = "AlarmSettingActivity";

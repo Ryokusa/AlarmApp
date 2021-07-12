@@ -1,4 +1,4 @@
-package x3033126.edu.gifu.u.ac.alarm_final;
+package x3033126.edu.gifu.u.ac.alarm_final.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import x3033126.edu.gifu.u.ac.alarm_final.R;
+import x3033126.edu.gifu.u.ac.alarm_final.UtilCommon;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";

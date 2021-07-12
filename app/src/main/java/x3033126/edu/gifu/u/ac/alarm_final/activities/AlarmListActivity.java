@@ -1,4 +1,4 @@
-package x3033126.edu.gifu.u.ac.alarm_final;
+package x3033126.edu.gifu.u.ac.alarm_final.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import x3033126.edu.gifu.u.ac.alarm_final.AlarmListAdapter;
+import x3033126.edu.gifu.u.ac.alarm_final.R;
+import x3033126.edu.gifu.u.ac.alarm_final.UtilCommon;
 
 public class AlarmListActivity extends AppCompatActivity {
     //グローバル

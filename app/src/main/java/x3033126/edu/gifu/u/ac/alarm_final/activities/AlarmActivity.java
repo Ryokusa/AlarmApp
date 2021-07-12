@@ -1,9 +1,11 @@
-package x3033126.edu.gifu.u.ac.alarm_final;
+package x3033126.edu.gifu.u.ac.alarm_final.activities;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import x3033126.edu.gifu.u.ac.alarm_final.R;
 
 public class AlarmActivity extends AppCompatActivity {
     private static final String TAG = "AlarmActivity";
