@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         utilCommon.saveAlarmData(); //アラームデータ保存
-        utilCommon.removeAllAlarmData();
+        //utilCommon.removeAllAlarmData();
         //utilCommon.allRemoveAlarm();
     }
 }

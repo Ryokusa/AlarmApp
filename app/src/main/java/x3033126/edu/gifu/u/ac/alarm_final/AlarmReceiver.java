@@ -16,8 +16,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         Toast.makeText(context, "Alarm Received", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "received");
 
-        int hour = intent.getIntExtra("hour", 0);
-        int requestCode = intent.getIntExtra("id", 0);
         UtilCommon.setAlarm(context, intent.getIntExtra("hour", 0),
                 intent.getIntExtra("min", 0),
                 intent.getIntExtra("id", 0));
