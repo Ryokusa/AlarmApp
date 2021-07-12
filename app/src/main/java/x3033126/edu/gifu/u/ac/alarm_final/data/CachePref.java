@@ -33,7 +33,7 @@ public class CachePref {
     public void put(String key, String value) {
         editor.putString(key, value).commit();
     }
-
+    //削除
     public void remove(String key){
         editor.remove(key).commit();
     }
