@@ -3,6 +3,7 @@ package x3033126.edu.gifu.u.ac.alarm_final;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
@@ -47,31 +48,7 @@ public class UtilCommon extends Application {
 
     //アラーム起動
     private void setAlarm(int hour, int min, int requestCode){
-        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), requestCode, intent, 0);
-        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-        if(am != null){
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, hour);   //時間
-            calendar.set(Calendar.MINUTE, min);         //分
-            calendar.set(Calendar.SECOND, 0);           //秒
-            //過ぎている場合は次の日
-            if(calendar.getTimeInMillis() <= System.currentTimeMillis()){
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
-            }
-
-            Log.d(TAG, "" + calendar.getTimeInMillis() + " : " + System.currentTimeMillis());
-            //TODO: 繰り返し登録
-            //am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);  //セット
-            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pending);  //五秒アラーム
-
-
-            String text = String.format(Locale.JAPAN, "%d月%d日, %02d:%02dにアラーム設定",
-                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
-                    calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
-            Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-        }
+        UtilCommon.setAlarm(getApplicationContext(), hour, min, requestCode);
     }
 
     public void setAlarm(int index){
@@ -155,6 +132,38 @@ public class UtilCommon extends Application {
     //コンテキストをどこからでも取得できるように
     public static synchronized UtilCommon getInstance() {
         return sInstance;
+    }
+
+    //外部・内部から呼び出せるように静的関数
+    public static void setAlarm(Context context, int hour, int min, int requestCode){
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.putExtra("id", requestCode);
+        intent.putExtra("hour", hour);
+        intent.putExtra("min", min);
+        intent.getIntExtra("hour", 0);
+        PendingIntent pending = PendingIntent.getBroadcast(context, requestCode, intent,  PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+        if(am != null){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);   //時間
+            calendar.set(Calendar.MINUTE, min);         //分
+            calendar.set(Calendar.SECOND, 0);           //秒
+            //過ぎている場合は次の日
+            if(calendar.getTimeInMillis() <= System.currentTimeMillis()){
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
+
+            Log.d(TAG, "" + calendar.getTimeInMillis() + " : " + System.currentTimeMillis());
+            //am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);  //セット
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pending);  //五秒アラーム
+
+
+            String text = String.format(Locale.JAPAN, "%d月%d日, %02d:%02dにアラーム設定",
+                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                    calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
