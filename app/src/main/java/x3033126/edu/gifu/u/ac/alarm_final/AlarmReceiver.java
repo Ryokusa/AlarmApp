@@ -7,10 +7,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class AlarmReceiver extends BroadcastReceiver {
+    private final static String TAG = "AlarmReceiver";
+
     @Override
     public void onReceive(Context context, Intent intent){
         Toast.makeText(context, "Alarm Received", Toast.LENGTH_SHORT).show();
-        Log.d("tag", "received");
+        Log.d(TAG, "received");
 
         Intent i = new Intent(context, AlarmActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ); //新しいタスクとして起動

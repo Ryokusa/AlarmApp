@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class AlarmSettingActivity extends AppCompatActivity {
+    private static final String TAG = "AlarmSettingActivity";
+
     private UtilCommon utilCommon;
     private int selIndex;
 

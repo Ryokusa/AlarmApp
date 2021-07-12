@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.ViewHolder> {
+    private static final String TAG = "AlarmListAdapter";
+
     //データ
     private final List<AlarmClass> localAlarmList;
     private AlarmListAdapter.OnItemClickListener listener;
@@ -60,7 +62,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.Vie
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position){
-        Log.d("test", localAlarmList.get(position).toString());
+        Log.d(TAG, localAlarmList.get(position).toString());
 
         AlarmClass alarm = localAlarmList.get(position);
         int hour = alarm.getHour();

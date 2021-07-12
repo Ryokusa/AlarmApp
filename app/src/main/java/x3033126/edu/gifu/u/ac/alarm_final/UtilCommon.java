@@ -17,6 +17,8 @@ import java.util.Random;
 
 //グローバル変数
 public class UtilCommon extends Application {
+    private static final String TAG = "UtilCommon";
+
     private final List<AlarmClass> alarmClassList = new ArrayList<>();
     private final List<Integer> requestCodes = new ArrayList<>();
 
@@ -46,7 +48,7 @@ public class UtilCommon extends Application {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
             }
 
-            Log.d("tag", "" + calendar.getTimeInMillis() + " : " + System.currentTimeMillis());
+            Log.d(TAG, "" + calendar.getTimeInMillis() + " : " + System.currentTimeMillis());
             //TODO: 繰り返し登録
             //am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);  //セット
             am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pending);  //五秒アラーム
