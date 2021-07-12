@@ -16,7 +16,6 @@ import java.util.Random;
 
 import x3033126.edu.gifu.u.ac.alarm_final.data.ObjectStorage;
 
-//TODO:enable処理
 
 //グローバル変数
 public class UtilCommon extends Application {
@@ -47,7 +46,7 @@ public class UtilCommon extends Application {
     }
 
     //アラーム起動
-    public void setAlarm(int hour, int min, int requestCode){
+    private void setAlarm(int hour, int min, int requestCode){
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), requestCode, intent, 0);
         AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
@@ -81,10 +80,12 @@ public class UtilCommon extends Application {
         int hour = alarmClassList.get(index).getHour();
         int min = alarmClassList.get(index).getMin();
 
+        alarmClassList.get(index).setEnable(true);  //有効
+
         setAlarm(hour, min, requestCode);
     }
 
-    public void setAlarm(int hour, int min){
+    private void setAlarm(int hour, int min){
         setAlarm(hour, min, makeRequestCode());
     }
 
@@ -98,6 +99,8 @@ public class UtilCommon extends Application {
             am.cancel(pending);
         }
         Log.d("tag", "requestCode="+requestCodes.get(index)+"を削除");
+
+        alarmClassList.get(index).setEnable(false); //無効
     }
 
     //indexのアラーム削除

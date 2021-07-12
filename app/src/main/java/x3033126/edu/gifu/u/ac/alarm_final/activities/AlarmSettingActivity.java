@@ -86,7 +86,7 @@ public class AlarmSettingActivity extends AppCompatActivity {
             AlarmClass alarm = alarmList.get(selIndex);
             alarm.setHour(hour);
             alarm.setMin(min);
-            utilCommon.setAlarm(selIndex);
+            if (alarm.getEnable()) utilCommon.setAlarm(selIndex);
         }
     }
 

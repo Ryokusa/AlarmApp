@@ -20,7 +20,9 @@ public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.Vie
 
     //データ
     private final List<AlarmClass> localAlarmList;
-    private AlarmListAdapter.OnItemClickListener listener;
+    private AlarmListAdapter.OnItemClickListener itemClickListener;
+    private AlarmListAdapter.OnCheckedChangeListener checkedChangeListener;
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView textView;
@@ -69,13 +71,13 @@ public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.Vie
         int min = alarm.getMin();
 
         //LinearLayout
-        viewHolder.getLinearLayout().setOnClickListener(v -> listener.onItemClick(viewHolder.getLinearLayout(), position));
+        viewHolder.getLinearLayout().setOnClickListener(v -> itemClickListener.onItemClick(viewHolder.getLinearLayout(), position));
 
         //TextView
         viewHolder.getTextView().setText(String.format(Locale.JAPAN, "%2d:%02d", hour, min));
 
         //Switch
-        viewHolder.getSwitch().setOnCheckedChangeListener((v, checked) -> localAlarmList.get(position).setEnable(checked));
+        viewHolder.getSwitch().setOnCheckedChangeListener((v, checked) -> checkedChangeListener.onCheckedChange(viewHolder.getSwitch(), position, checked));
         viewHolder.getSwitch().setChecked(alarm.getEnable());
     }
 
@@ -89,8 +91,17 @@ public class AlarmListAdapter extends RecyclerView.Adapter <AlarmListAdapter.Vie
         void onItemClick(View v, int position);
     }
 
+    //スイッチチェンジリスナー
+    public interface  OnCheckedChangeListener{
+        void onCheckedChange(View v, int position, Boolean checked);
+    }
+
     //セットイベントリスナー
     public void setOnItemClickListener(AlarmListAdapter.OnItemClickListener listener){
-        this.listener = listener;
+        this.itemClickListener = listener;
+    }
+
+    public void setOnCheckedChangeListener(AlarmListAdapter.OnCheckedChangeListener listener){
+        this.checkedChangeListener = listener;
     }
 }

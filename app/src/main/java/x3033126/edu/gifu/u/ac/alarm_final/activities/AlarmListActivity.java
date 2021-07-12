@@ -41,6 +41,16 @@ public class AlarmListActivity extends AppCompatActivity {
         //編集モード
         alarmListAdapter.setOnItemClickListener((v, position) -> startAlarmSettingActivity(position));
 
+        //有効ボタン切り替え
+        alarmListAdapter.setOnCheckedChangeListener((v, position, checked) ->{
+            utilCommon.getAlarmClassList().get(position).setEnable(checked);
+            if(checked){
+                utilCommon.setAlarm(position);
+            }else{
+                utilCommon.resetAlarm(position);
+            }
+        });
+
         //BACKボタン
         Button returnButton = findViewById(R.id.return_button);
         returnButton.setOnClickListener(v -> finish());
