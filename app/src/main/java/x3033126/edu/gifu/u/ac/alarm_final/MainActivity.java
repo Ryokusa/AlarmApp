@@ -2,6 +2,7 @@ package x3033126.edu.gifu.u.ac.alarm_final;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         utilCommon  = (UtilCommon)getApplication();
+        if (utilCommon.loadAlarmData()){ //アラームデータ読み込み
+            Log.d(TAG, "アラームデータ読み込み完了");
+        }else{
+            Log.d(TAG, "アラームデータ読み込み失敗");
+        }
 
         //コンポーネント
         FloatingActionButton nextButton = this.findViewById(R.id.alarmListButton);
@@ -31,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        utilCommon.saveAlarmData(); //アラームデータ保存
+        //utilCommon.removeAlarmData();
         //utilCommon.allRemoveAlarm();
     }
 }

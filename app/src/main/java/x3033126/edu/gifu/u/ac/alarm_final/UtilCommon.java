@@ -8,10 +8,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
+import x3033126.edu.gifu.u.ac.alarm_final.data.ObjectStorage;
 
 //TODO:常駐化
 
@@ -19,12 +22,15 @@ import java.util.Random;
 public class UtilCommon extends Application {
     private static final String TAG = "UtilCommon";
 
-    private final List<AlarmClass> alarmClassList = new ArrayList<>();
-    private final List<Integer> requestCodes = new ArrayList<>();
+    private static UtilCommon sInstance;
+
+    private List<AlarmClass> alarmClassList = new ArrayList<>();
+    private List<Integer> requestCodes = new ArrayList<>();
 
     @Override
     public void onCreate(){
         super.onCreate();
+        sInstance = this;
     }
 
     //参照型なのでgetオンリー
@@ -104,5 +110,34 @@ public class UtilCommon extends Application {
         return value;
     }
 
+    //保存
+    public void saveAlarmData(){
+        ObjectStorage.save(this.alarmClassList, "alarm_list");
+        ObjectStorage.save(this.requestCodes, "request_codes");
+    }
+
+    //読み込み
+    public Boolean loadAlarmData(){
+        AlarmClass[] al = ObjectStorage.get("alarm_list", AlarmClass[].class);
+        Integer[] rc = ObjectStorage.get("request_codes", Integer[].class);
+
+        if(al != null && rc != null) {
+            alarmClassList = new ArrayList<>(Arrays.asList(al));
+            requestCodes = new ArrayList<>(Arrays.asList(rc));
+            return true;
+        }
+        return false;
+    }
+
+    //アラームデータ全削除
+    public void removeAllAlarmData(){
+        ObjectStorage.remove("alarm_list");
+        ObjectStorage.remove("request_codes");
+    }
+
+    //コンテキストをどこからでも取得できるように
+    public static synchronized UtilCommon getInstance() {
+        return sInstance;
+    }
 
 }
