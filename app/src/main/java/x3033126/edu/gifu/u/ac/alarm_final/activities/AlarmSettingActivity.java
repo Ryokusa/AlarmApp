@@ -90,4 +90,9 @@ public class AlarmSettingActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        utilCommon.settingOverlay(this);
+    }
 }
