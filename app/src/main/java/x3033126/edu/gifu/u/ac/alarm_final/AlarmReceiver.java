@@ -33,6 +33,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             Intent i = new Intent(context, AlarmActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //新しいタスクとして起動
+            i.putExtra("hour", intent.getIntExtra("hour", 0));
+            i.putExtra("min", intent.getIntExtra("min", 0));
+
 
             //TODO: 上の動作をするためには設定から「他アプリの上乗せ許可」が必要なので、設定に誘導できるようにする
             context.startActivity(i);

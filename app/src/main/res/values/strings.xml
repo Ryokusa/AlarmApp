@@ -4,6 +4,8 @@
     <string name="save">保存</string>
     <string name="remove">削除</string>
     <string name="alarm_setting">アラーム設定</string>
+    <string name="init_clock">00:00</string>
+    <string name="stop_alarm">アラーム停止</string>
 
     <string name="add_clock">add clock</string>
 </resources>
