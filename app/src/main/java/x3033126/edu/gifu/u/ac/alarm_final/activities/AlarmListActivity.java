@@ -32,7 +32,7 @@ public class AlarmListActivity extends AppCompatActivity {
         setTitle(R.string.alarm_setting);
 
         //コンポーネント
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.alarm_list);
+        RecyclerView recyclerView = findViewById(R.id.alarm_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         alarmListAdapter = new AlarmListAdapter(utilCommon.getAlarmClassList());
         recyclerView.setAdapter(alarmListAdapter);
@@ -56,7 +56,7 @@ public class AlarmListActivity extends AppCompatActivity {
         returnButton.setOnClickListener(v -> finish());
 
         //アラーム追加ボタン
-        FloatingActionButton addButton = (FloatingActionButton)findViewById(R.id.addAlarmButton);
+        FloatingActionButton addButton = findViewById(R.id.addAlarmButton);
         addButton.setOnClickListener(v -> startAlarmSettingActivity());
     }
 
@@ -64,6 +64,7 @@ public class AlarmListActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        utilCommon.settingOverlay(this);
         alarmListAdapter.notifyDataSetChanged();    //更新
     }
 

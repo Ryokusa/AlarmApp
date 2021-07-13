@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        utilCommon.settingOverlay();
+        utilCommon.settingOverlay(this);
     }
 
     //アプリを離れたときにも保存

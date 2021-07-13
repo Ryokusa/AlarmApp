@@ -1,6 +1,8 @@
 package x3033126.edu.gifu.u.ac.alarm_final;
 
+import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -68,6 +70,15 @@ public class UtilCommon extends Application {
         setAlarm(hour, min, makeRequestCode());
     }
 
+    //再起動(有効なアラーム)
+    private void allSetEnableAlarm(){
+        for (int i = 0; i < requestCodes.size(); i++){
+            if (alarmClassList.get(i).getEnable()){
+                setAlarm(i);
+            }
+        }
+    }
+
     //アラーム停止
     public void resetAlarm(int index){
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
@@ -80,6 +91,12 @@ public class UtilCommon extends Application {
         Log.d("tag", "requestCode="+requestCodes.get(index)+"を削除");
 
         alarmClassList.get(index).setEnable(false); //無効
+    }
+
+    public void allResetAlarm() {
+        for (int i = 0; i < requestCodes.size(); i++) {
+            resetAlarm(i);
+        }
     }
 
     //indexのアラーム削除
@@ -136,13 +153,23 @@ public class UtilCommon extends Application {
         allRemoveAlarm();
     }
 
-    public void settingOverlay(){
+    public void settingOverlay(Activity activity){
         if (!Settings.canDrawOverlays(this)) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-            //Android.R(Version 11)からはOVERLAY設定を直接開けないことが発覚
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            Log.d(TAG, intent.getDataString());
-            startActivity(intent);
+            allResetAlarm();
+            new AlertDialog.Builder(activity)
+                    .setTitle("注意")
+                    .setMessage("アラームが動作しません\nこのアプリのオーバーレイを許可してください")
+                    .setPositiveButton("OK", (dialog, id) -> {
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                        //Android.R(Version 11)からはOVERLAY設定を直接開けないことが発覚
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Log.d(TAG, intent.getDataString());
+                        startActivity(intent);
+                    })
+                    .show();
+        }else{
+            //アラーム再設定
+            allSetEnableAlarm();
         }
     }
 
