@@ -37,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //アプリを離れたときにも保存
+    @Override
+    protected void onPause() {
+        super.onPause();
+        utilCommon.saveAlarmData();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
