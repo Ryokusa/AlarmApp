@@ -1,7 +1,10 @@
 package x3033126.edu.gifu.u.ac.alarm_final.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -31,6 +34,12 @@ public class AlarmActivity extends AppCompatActivity {
         //停止ボタン
         Button stopButton = findViewById(R.id.stop_alarm_button);
         stopButton.setOnClickListener((v) -> finish());
+
+        //バイブレーション
+        //動作確認はしていない
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        VibrationEffect vEffect = VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrator.vibrate(vEffect);
 
     }
 }
