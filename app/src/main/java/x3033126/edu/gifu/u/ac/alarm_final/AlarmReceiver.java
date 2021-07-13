@@ -3,6 +3,7 @@ package x3033126.edu.gifu.u.ac.alarm_final;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -44,11 +45,15 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     //アラーム全設定
     private void setAllAlarm(Context context){
-        AlarmClass[] al = ObjectStorage.get("alarm_list", AlarmClass[].class);
-        Integer[] rc = ObjectStorage.get("request_codes", Integer[].class);
-        if (al != null && rc != null) {
-            for (int i = 0; i < al.length; i++) {
-                UtilCommon.setAlarm(context, al[i].getHour(), al[i].getMin(), rc[i]);
+        if(Settings.canDrawOverlays(context)) {
+            AlarmClass[] al = ObjectStorage.get("alarm_list", AlarmClass[].class);
+            Integer[] rc = ObjectStorage.get("request_codes", Integer[].class);
+            if (al != null && rc != null) {
+                for (int i = 0; i < al.length; i++) {
+                    if (al[i].getEnable()) {
+                        UtilCommon.setAlarm(context, al[i].getHour(), al[i].getMin(), rc[i]);
+                    }
+                }
             }
         }
     }
