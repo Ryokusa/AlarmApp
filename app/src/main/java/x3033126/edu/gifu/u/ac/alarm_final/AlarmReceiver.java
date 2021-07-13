@@ -26,6 +26,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ); //新しいタスクとして起動
 
         //TODO: 上の動作をするためには設定から「他アプリの上乗せ許可」が必要なので、設定に誘導できるようにする
-        //context.startActivity(i);
+        context.startActivity(i);
     }
 }
