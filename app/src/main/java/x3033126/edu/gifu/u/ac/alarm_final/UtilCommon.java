@@ -108,10 +108,14 @@ public class UtilCommon extends Application {
     public void saveAlarmData(){
         ObjectStorage.save(this.alarmClassList, "alarm_list");
         ObjectStorage.save(this.requestCodes, "request_codes");
+
+        Log.d(TAG, "saveAlarmData");
     }
 
     //読み込み
     public Boolean loadAlarmData(){
+        Log.d(TAG, "loadAlarmData");
+
         AlarmClass[] al = ObjectStorage.get("alarm_list", AlarmClass[].class);
         Integer[] rc = ObjectStorage.get("request_codes", Integer[].class);
 
@@ -156,7 +160,7 @@ public class UtilCommon extends Application {
 
             Log.d(TAG, "" + calendar.getTimeInMillis() + " : " + System.currentTimeMillis());
             //am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);  //セット
-            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pending);  //五秒アラーム
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, pending);  //五秒アラーム
 
 
             String text = String.format(Locale.JAPAN, "%d月%d日, %02d:%02dにアラーム設定",
