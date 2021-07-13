@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        utilCommon.settingOverlay();
+    }
+
     //アプリを離れたときにも保存
     @Override
     protected void onPause() {

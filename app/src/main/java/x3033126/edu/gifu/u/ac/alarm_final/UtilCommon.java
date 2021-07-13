@@ -5,6 +5,8 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -132,6 +134,18 @@ public class UtilCommon extends Application {
         ObjectStorage.remove("alarm_list");
         ObjectStorage.remove("request_codes");
     }
+
+    public void settingOverlay(){
+        if (!Settings.canDrawOverlays(this)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+            //Android.R(Version 11)からはOVERLAY設定を直接開けないことが発覚
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Log.d(TAG, intent.getDataString());
+            startActivity(intent);
+        }
+    }
+
+
 
     //コンテキストをどこからでも取得できるように
     public static synchronized UtilCommon getInstance() {
