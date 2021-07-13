@@ -133,6 +133,7 @@ public class UtilCommon extends Application {
     public void removeAllAlarmData(){
         ObjectStorage.remove("alarm_list");
         ObjectStorage.remove("request_codes");
+        allRemoveAlarm();
     }
 
     public void settingOverlay(){
