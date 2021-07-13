@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import x3033126.edu.gifu.u.ac.alarm_final.activities.AlarmActivity;
 
+//TODO: アンドロイド起動時からブロードキャストレシーバーを稼働させる
+
 public class AlarmReceiver extends BroadcastReceiver {
     private final static String TAG = "AlarmReceiver";
 
